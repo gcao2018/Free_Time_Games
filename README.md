@@ -1,1 +1,1 @@
-# Code for implementing Tetris game
+# Code for various games
