@@ -1,1 +1,1 @@
-# Code for various games
+Various games
