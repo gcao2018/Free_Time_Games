@@ -295,7 +295,7 @@ class Tetra {
     // has this Tetra hit the right wall?
     boolean hitRightWall() {
         return this.first.hitRightWall() || this.second.hitRightWall() ||
-                this.third.hitRightWall() || this.fourth.hitRightWall();
+               this.third.hitRightWall() || this.fourth.hitRightWall();
     }
     
     // is this Tetra on top of that Tetra?
@@ -321,61 +321,61 @@ class Tetra {
     // is this Tetra on the right of that Tetra?
     boolean onRight(Tetra that) {
         return this.first.onRight(that.first) ||
-                this.first.onRight(that.second) ||
-                this.first.onRight(that.third) ||
-                this.first.onRight(that.fourth) ||
-                this.second.onRight(that.first) ||
-                this.second.onRight(that.second) ||
-                this.second.onRight(that.third) ||
-                this.second.onRight(that.fourth) ||
-                this.third.onRight(that.first) ||
-                this.third.onRight(that.second) ||
-                this.third.onRight(that.third) ||
-                this.third.onRight(that.fourth) ||
-                this.fourth.onRight(that.first) ||
-                this.fourth.onRight(that.second) ||
-                this.fourth.onRight(that.third) ||
-                this.fourth.onRight(that.fourth);
+               this.first.onRight(that.second) ||
+               this.first.onRight(that.third) ||
+               this.first.onRight(that.fourth) ||
+               this.second.onRight(that.first) ||
+               this.second.onRight(that.second) ||
+               this.second.onRight(that.third) ||
+               this.second.onRight(that.fourth) ||
+               this.third.onRight(that.first) ||
+               this.third.onRight(that.second) ||
+               this.third.onRight(that.third) ||
+               this.third.onRight(that.fourth) ||
+               this.fourth.onRight(that.first) ||
+               this.fourth.onRight(that.second) ||
+               this.fourth.onRight(that.third) ||
+               this.fourth.onRight(that.fourth);
     }
     
     // is this Tetra on the left of that Tetra?
     boolean onLeft(Tetra that) {
         return this.first.onLeft(that.first) ||
-                this.first.onLeft(that.second) ||
-                this.first.onLeft(that.third) ||
-                this.first.onLeft(that.fourth) ||
-                this.second.onLeft(that.first) ||
-                this.second.onLeft(that.second) ||
-                this.second.onLeft(that.third) ||
-                this.second.onLeft(that.fourth) ||
-                this.third.onLeft(that.first) ||
-                this.third.onLeft(that.second) ||
-                this.third.onLeft(that.third) ||
-                this.third.onLeft(that.fourth) ||
-                this.fourth.onLeft(that.first) ||
-                this.fourth.onLeft(that.second) ||
-                this.fourth.onLeft(that.third) ||
-                this.fourth.onLeft(that.fourth);
+               this.first.onLeft(that.second) ||
+               this.first.onLeft(that.third) ||
+               this.first.onLeft(that.fourth) ||
+               this.second.onLeft(that.first) ||
+               this.second.onLeft(that.second) ||
+               this.second.onLeft(that.third) ||
+               this.second.onLeft(that.fourth) ||
+               this.third.onLeft(that.first) ||
+               this.third.onLeft(that.second) ||
+               this.third.onLeft(that.third) ||
+               this.third.onLeft(that.fourth) ||
+               this.fourth.onLeft(that.first) ||
+               this.fourth.onLeft(that.second) ||
+               this.fourth.onLeft(that.third) ||
+               this.fourth.onLeft(that.fourth);
     }
     
     // is this Tetra overlayed over or under that Tetra?
     boolean overlayed(Tetra that) {
         return this.first.overlayed(that.first) ||
-                this.first.overlayed(that.second) ||
-                this.first.overlayed(that.third) ||
-                this.first.overlayed(that.fourth) ||
-                this.second.overlayed(that.first) ||
-                this.second.overlayed(that.second) ||
-                this.second.overlayed(that.third) ||
-                this.second.overlayed(that.fourth) ||
-                this.third.overlayed(that.first) ||
-                this.third.overlayed(that.second) ||
-                this.third.overlayed(that.third) ||
-                this.third.overlayed(that.fourth) ||
-                this.fourth.overlayed(that.first) ||
-                this.fourth.overlayed(that.second) ||
-                this.fourth.overlayed(that.third) ||
-                this.fourth.overlayed(that.fourth);
+               this.first.overlayed(that.second) ||
+               this.first.overlayed(that.third) ||
+               this.first.overlayed(that.fourth) ||
+               this.second.overlayed(that.first) ||
+               this.second.overlayed(that.second) ||
+               this.second.overlayed(that.third) ||
+               this.second.overlayed(that.fourth) ||
+               this.third.overlayed(that.first) ||
+               this.third.overlayed(that.second) ||
+               this.third.overlayed(that.third) ||
+               this.third.overlayed(that.fourth) ||
+               this.fourth.overlayed(that.first) ||
+               this.fourth.overlayed(that.second) ||
+               this.fourth.overlayed(that.third) ||
+               this.fourth.overlayed(that.fourth);
     }
     
     // this tetra after falling for one tick
@@ -482,7 +482,7 @@ class TetrisWorld extends World {
     // list of tetras?
     boolean onLeft() {
         boolean helper = false;
-        for(Cell cell : this.cellList) {
+        for (Cell cell : this.cellList) {
             helper = this.tetra.first.onLeft(cell) ||
                      this.tetra.second.onLeft(cell) ||
                      this.tetra.third.onLeft(cell) ||
@@ -495,8 +495,8 @@ class TetrisWorld extends World {
     // underlayed on another cell in the list of Cells?
     boolean overlayed() {
         boolean helper = false;
-        for(Cell cell : this.cellList) {
-            for(Posn posn : this.tetra.newPosn()) {
+        for (Cell cell : this.cellList) {
+            for (Posn posn : this.tetra.newPosn()) {
                 helper = cell.cpos.x == posn.x &&
                          cell.cpos.y == posn.y ||
                          helper;
@@ -508,7 +508,7 @@ class TetrisWorld extends World {
     // if the Tetra is rotated, will any Cell in the tetra be out of the world?
     boolean outOfWorld() {
         boolean helper = false;
-        for(Posn posn : this.tetra.newPosn()) {
+        for (Posn posn : this.tetra.newPosn()) {
             helper = posn.x < 0 || posn.x > TetrisWorld.HORIZONTAL ||
                      posn.y > TetrisWorld.VERTICAL || helper;
         }
@@ -559,10 +559,10 @@ class TetrisWorld extends World {
         }
         else if (this.rowFormed2()) {
             for (int i = 0; i < TetrisWorld.VERTICAL + 2; i++) {
-                if(this.rowFormed(i)) {
+                if (this.rowFormed(i)) {
                     this.removeRow(i);
-                    for(Cell cell : this.cellList) {
-                        if(i > cell.cpos.y) {
+                    for (Cell cell : this.cellList) {
+                        if (i > cell.cpos.y) {
                             cell.fall();
                         }
                     }
@@ -598,7 +598,7 @@ class TetrisWorld extends World {
     void removeRow(int y) {
         LinkedList<Cell> helper = new LinkedList<Cell>();
         for (Cell cell : this.cellList) {
-            if(cell.cpos.y != y) {
+            if (cell.cpos.y != y) {
                 helper.add(cell);
             }
         }
@@ -636,7 +636,7 @@ class TetrisWorld extends World {
     
     // ends the game
     public WorldEnd worldEnds() {
-        if(this.atCeiling()) {
+        if (this.atCeiling()) {
             return new WorldEnd(true, this.lastImage(""));
         }
         else {
@@ -667,12 +667,15 @@ class TetrisWorld extends World {
 
 // examples
 class ExamplesTetris {
+    
     // tetris worlds
     TetrisWorld w1;
+    
     // initial state
     void initial() {
         this.w1 = new TetrisWorld();
     }
+    
     // run animation
     void testRunAnimation(Tester t) {
         this.initial();
