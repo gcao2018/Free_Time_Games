@@ -1,24 +1,35 @@
-//tester
+// tester
 import tester.*;
-//utility
+
+// utility
 import java.util.*;
-//colors
+
+// colors
 import java.awt.Color;
-//big bang stuff
+
+// big bang stuff
 import javalib.impworld.*;
 import javalib.worldimages.*;
-//a single square unit of the game
+
+// a single square unit of the game
 class Cell {
-    //fields
+    
+    // length of one side of a Cell
     public static int SIZE = 8;
+    
+    // position of the cell in the world
     Posn cpos;
+    
+    // the color of the cell
     Color color;
-    //construct Cell
+    
+    // construct Cell
     Cell(Posn cpos, Color color) {
         this.cpos = cpos;
         this.color = color;
     }
-    //draw this Cell
+    
+    // draw this Cell
     WorldImage cellImage() {
         return new RectangleImage(new Posn(
                 this.cpos.x * Cell.SIZE + Cell.SIZE / 2,
@@ -26,15 +37,26 @@ class Cell {
                 this.color);
     }
 }
-//player character
+
+// a player character (whose avatar is a snake)
 class Character {
-    //fields
-    Posn hpos; //head position
-    LinkedList<Cell> body; //body of a snake
-    LinkedList<Cell> body2; //not including head
+    
+    // position of the head of the snake
+    Posn hpos;
+    
+    // the snake's entire body
+    LinkedList<Cell> body;
+    
+    // the snake's body, not including its head
+    LinkedList<Cell> body2;
+    
+    // the snake's color
     Color color;
-    String direction; //is the character facing north, south, east, or west?
-    //construct Character
+    
+    // is this character facing north, south, east, or west?
+    String direction;
+    
+    // construct Character
     Character(Posn hpos, Color color, String direction) {
         this.hpos = hpos;
         this.body = new LinkedList<Cell>();
@@ -43,12 +65,14 @@ class Character {
         this.direction = direction;
         this.body.addFirst(new Cell(hpos, color));
     }
-    //grow this Character
+    
+    // grow this Character
     void growCharacter() {
         this.body.addFirst(new Cell(this.hpos, this.color));
         this.body2.addFirst(this.body.get(1));
     }
-    //is this character colliding with its own body?
+    
+    // is this character colliding with its own body?
     boolean collision() {
         boolean helper = false;
         for(Cell cell : this.body2) {
@@ -57,7 +81,8 @@ class Character {
         }
         return helper;
     }
-    //change the color of the Cell at that Posn in this Character's body
+    
+    // change the color of the Cell at that Posn in this Character's body
     void animateExplosion(Posn posn) {
         for(Cell cell : this.body) {
             if(cell.cpos.x == posn.x && cell.cpos.y == posn.y) {
@@ -68,7 +93,8 @@ class Character {
             }
         }
     }
-    //draw this Character
+    
+    // draw this Character
     WorldImage characterImage() {
         WorldImage helper = new CircleImage(new Posn(
                 this.hpos.x * Cell.SIZE + Cell.SIZE / 2,
@@ -79,16 +105,27 @@ class Character {
         return helper;
     }
 }
-//the world characters live in
+
+// the world characters live in
 class CharacterWorld extends World {
-    //fields
+    
+    // horizontal width of the world
     public static int HORIZONTAL = 32;
+    
+    // horizontal length of the world
     public static int VERTICAL = 32;
+    
+    // SpeedSnake is a multiplayer game with two players
     Character player1;
     Character player2;
+    
+    // player1's score
     int score1;
+    
+    // player2's score
     int score2;
-    //construct CharacterWorld
+    
+    // construct CharacterWorld
     CharacterWorld() {
         this.player1 = new Character(new Posn(0, CharacterWorld.VERTICAL),
                 Color.cyan, "east");
@@ -97,7 +134,8 @@ class CharacterWorld extends World {
         this.score1 = this.player1.body.size() * 10;
         this.score2 = this.player2.body.size() * 10;
     }
-    //does that player collide with the walls or with itself?
+    
+    // does that player collide with the walls or with itself?
     boolean collision1(Character player) {
         return player.hpos.x < 0 ||
                player.hpos.x > CharacterWorld.HORIZONTAL ||
@@ -105,7 +143,8 @@ class CharacterWorld extends World {
                player.hpos.y > CharacterWorld.VERTICAL ||
                player.collision();
     }
-    //does player1 collide with player2 or the wall?
+    
+    // does player1 collide with player2 or the wall?
     boolean collision2() {
         boolean helper = false;
         for(Cell cell : this.player2.body2) {
@@ -115,7 +154,8 @@ class CharacterWorld extends World {
         helper = this.collision1(this.player1) || helper;
         return helper;
     }
-    //does player2 collide with player1 or the wall?
+    
+    // does player2 collide with player1 or the wall?
     boolean collison3() {
         boolean helper = false;
         for(Cell cell : this.player1.body2) {
@@ -125,7 +165,8 @@ class CharacterWorld extends World {
         helper = this.collision1(this.player2) || helper;
         return helper;
     }
-    //player controls
+    
+    // player controls
     public void onKeyEvent(String key) {
         if(key.equals("left")) {
             this.player1.direction = "west";
@@ -155,9 +196,11 @@ class CharacterWorld extends World {
             //do nothing
         }
     }
-    //something happens ever tick
+    
+    // something happens ever tick
     public void onTick() {
-        //for player1
+        
+        // for player1
         if(this.collision2()) {
             this.player1.animateExplosion(this.player1.body.getFirst().cpos);
         }
@@ -181,7 +224,8 @@ class CharacterWorld extends World {
                     this.player1.hpos.y + 1);
             this.player1.growCharacter();
         }
-        //for player2
+        
+        // for player2
         if(this.collison3()) {
             this.player1.animateExplosion(this.player2.body.getFirst().cpos);
             this.player2.animateExplosion(this.player2.body.getFirst().cpos);
@@ -206,11 +250,13 @@ class CharacterWorld extends World {
                     this.player2.hpos.y + 1);
             this.player2.growCharacter();
         }
-        //update scores
+        
+        // update scores
         this.score1 = this.player1.body.size() * 10;
         this.score2 = this.player2.body.size() * 10;
     }
-    //draw world
+    
+    // draw world
     public WorldImage makeImage() {
         WorldImage helper = new RectangleImage(new Posn(
                 CharacterWorld.HORIZONTAL * Cell.SIZE / 2 + Cell.SIZE / 2,
@@ -231,15 +277,19 @@ class CharacterWorld extends World {
         return helper;
     }
 }
-//examples
+
+// examples
 class ExamplesSpeedSnake {
-    //character worlds
+    
+    // world for characters to play in
     CharacterWorld w1;
-    //initial state
+    
+    // initial state
     void initial() {
         this.w1 = new CharacterWorld();
     }
-    //run animation
+    
+    // run animation
     void testRunAnimation(Tester t) {
         this.initial();
         this.w1.bigBang(CharacterWorld.HORIZONTAL * Cell.SIZE + Cell.SIZE,
