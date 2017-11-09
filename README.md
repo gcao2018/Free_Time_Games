@@ -1,1 +1,1 @@
-A repository filled with games. It could be better organized. The library used was university provided. These were written before I had taken a course in object oriented design, so all the classes that I wrote are still put in one file.
+A repository filled with games. It could be better organized. The library used was university provided. These programs were written after I had just finished taking Fundamentals of Computer Science II and before I had taken Object Oriented Design, so the multiple classes that I wrote for each game are all placed in a single file.
