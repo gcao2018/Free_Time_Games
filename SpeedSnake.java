@@ -75,7 +75,7 @@ class Character {
     // is this character colliding with its own body?
     boolean collision() {
         boolean helper = false;
-        for(Cell cell : this.body2) {
+        for (Cell cell : this.body2) {
             helper = this.hpos.x == cell.cpos.x &&
                      this.hpos.y == cell.cpos.y || helper;
         }
@@ -84,12 +84,9 @@ class Character {
     
     // change the color of the Cell at that Posn in this Character's body
     void animateExplosion(Posn posn) {
-        for(Cell cell : this.body) {
-            if(cell.cpos.x == posn.x && cell.cpos.y == posn.y) {
+        for (Cell cell : this.body) {
+            if (cell.cpos.x == posn.x && cell.cpos.y == posn.y) {
                 cell.color = Color.orange;
-            }
-            else {
-                //do nothing
             }
         }
     }
@@ -99,7 +96,7 @@ class Character {
         WorldImage helper = new CircleImage(new Posn(
                 this.hpos.x * Cell.SIZE + Cell.SIZE / 2,
                 this.hpos.y * Cell.SIZE + Cell.SIZE / 2), 1, this.color);
-        for(Cell cell : this.body) {
+        for (Cell cell : this.body) {
             helper = new OverlayImages(helper, cell.cellImage());
         }
         return helper;
@@ -147,7 +144,7 @@ class CharacterWorld extends World {
     // does player1 collide with player2 or the wall?
     boolean collision2() {
         boolean helper = false;
-        for(Cell cell : this.player2.body2) {
+        for (Cell cell : this.player2.body2) {
             helper = this.player1.hpos.x == cell.cpos.x &&
                      this.player1.hpos.y == cell.cpos.y || helper;
         }
@@ -158,7 +155,7 @@ class CharacterWorld extends World {
     // does player2 collide with player1 or the wall?
     boolean collison3() {
         boolean helper = false;
-        for(Cell cell : this.player1.body2) {
+        for (Cell cell : this.player1.body2) {
             helper = this.player2.hpos.x == cell.cpos.x &&
                      this.player2.hpos.y == cell.cpos.y || helper;
         }
@@ -168,32 +165,29 @@ class CharacterWorld extends World {
     
     // player controls
     public void onKeyEvent(String key) {
-        if(key.equals("left")) {
+        if (key.equals("left")) {
             this.player1.direction = "west";
         }
-        else if(key.equals("up")) {
+        else if (key.equals("up")) {
             this.player1.direction = "north";
         }
-        else if(key.equals("right")) {
+        else if (key.equals("right")) {
             this.player1.direction = "east";
         }
-        else if(key.equals("down")) {
+        else if (key.equals("down")) {
             this.player1.direction = "south";
         }
-        else if(key.equals("a")) {
+        else if (key.equals("a")) {
             this.player2.direction = "west";
         }
-        else if(key.equals("w")) {
+        else if (key.equals("w")) {
             this.player2.direction = "north";
         }
-        else if(key.equals("d")) {
+        else if (key.equals("d")) {
             this.player2.direction = "east";
         }
-        else if(key.equals("s")) {
+        else if (key.equals("s")) {
             this.player2.direction = "south";
-        }
-        else {
-            //do nothing
         }
     }
     
@@ -201,20 +195,20 @@ class CharacterWorld extends World {
     public void onTick() {
         
         // for player1
-        if(this.collision2()) {
+        if (this.collision2()) {
             this.player1.animateExplosion(this.player1.body.getFirst().cpos);
         }
-        else if(this.player1.direction.equals("west")) {
+        else if (this.player1.direction.equals("west")) {
             this.player1.hpos = new Posn(this.player1.hpos.x - 1,
                     this.player1.hpos.y);
             this.player1.growCharacter();
         }
-        else if(this.player1.direction.equals("north")) {
+        else if (this.player1.direction.equals("north")) {
             this.player1.hpos = new Posn(this.player1.hpos.x,
                     this.player1.hpos.y - 1);
             this.player1.growCharacter();
         }
-        else if(this.player1.direction.equals("east")) {
+        else if (this.player1.direction.equals("east")) {
             this.player1.hpos = new Posn(this.player1.hpos.x + 1,
                     this.player1.hpos.y);
             this.player1.growCharacter();
@@ -226,21 +220,21 @@ class CharacterWorld extends World {
         }
         
         // for player2
-        if(this.collison3()) {
+        if (this.collison3()) {
             this.player1.animateExplosion(this.player2.body.getFirst().cpos);
             this.player2.animateExplosion(this.player2.body.getFirst().cpos);
         }
-        else if(this.player2.direction.equals("west")) {
+        else if (this.player2.direction.equals("west")) {
             this.player2.hpos = new Posn(this.player2.hpos.x - 1,
                     this.player2.hpos.y);
             this.player2.growCharacter();
         }
-        else if(this.player2.direction.equals("north")) {
+        else if (this.player2.direction.equals("north")) {
             this.player2.hpos = new Posn(this.player2.hpos.x,
                     this.player2.hpos.y - 1);
             this.player2.growCharacter();
         }
-        else if(this.player2.direction.equals("east")) {
+        else if (this.player2.direction.equals("east")) {
             this.player2.hpos = new Posn(this.player2.hpos.x + 1,
                     this.player2.hpos.y);
             this.player2.growCharacter();
